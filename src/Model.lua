@@ -15,6 +15,7 @@ local Config = {}
 --
 Model.useConfig = function (config)
   Config.tableName = config.tableName
+  Config.dates = config.dates or nil
   Config.primaryKey = config.primaryKey or 'id'
   Config.updateKey = config.updateKey or 'id'
 end
@@ -60,8 +61,30 @@ Model.new = function (attributes)
   --
   -- @return {void}
   --
-  instance.save = function ()
-    -- TODO : Generate INSERT/UPDATE SQL
+  instance.save = function () 
+    if (instance.get(Config.primaryKey) ~= nil) then
+      local updateQuery = ''
+
+      for field, value in pairs(instance.attributes) do
+        if (field == Config.primaryKey) then
+          -- do nothing
+        elseif (inTable(Config.dates, field)) then
+          -- TODO : Need to format date field
+          -- updateQuery = updateQuery .. ' ' .. field .. ' = ' .. os.date('%Y-%m-%d %X', value) .. ','
+        elseif (type(value) == 'number' or type(value) == 'boolean') then
+          updateQuery = updateQuery .. ' ' .. field .. ' = ' .. tostring(value) .. ','
+        else
+          updateQuery = updateQuery .. ' ' .. field .. ' = "' .. tostring(value) .. '",'
+        end
+      end
+
+      MySQL.Sync.execute('UPDATE ' .. Config.tableName .. ' SET' .. updateQuery:sub(1, -2) .. ' WHERE ' .. Config.primaryKey .. ' = @primaryKey',
+        { ['@primaryKey'] = instance.get(Config.primaryKey) })
+
+      return
+    end
+
+    -- TODO : use create request
   end
 
   return instance

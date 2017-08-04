@@ -7,3 +7,7 @@
 function DefineTable (config)
   return Table.define(config)
 end
+
+function inTable(table, key)
+  return table[key] ~= nil
+end
