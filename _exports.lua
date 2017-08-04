@@ -1,3 +1,3 @@
-function DefineTable (tableName)
-  return Table.define(tableName)
+function DefineTable (config)
+  return Table.define(config)
 end
