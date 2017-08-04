@@ -93,3 +93,36 @@ Model.findBy = function (field, value)
     { ['@value'] = value })[1]
   )
 end
+
+-- -
+-- Adds a WHERE query contraint.
+--
+-- @param  {...}  conditions
+-- @return {void}
+--
+Model.where = function (...)
+  -- TODO : Should use a QueryBuilder
+  local arg = {...}
+  local query = "WHERE "
+
+  if #arg == 1 and type(arg[1]) == "table" then
+    for i, condition in ipairs(arg[1]) do
+
+      if i > 1 then
+        query = query .. "AND "
+      end
+
+      local count = #condition
+      if count == 2 then
+        query = query .. condition[1] .. " = " .. condition[2] .. " "
+      else
+        query = query .. condition[1] .. " " .. condition[2].. " " .. condition[3] .. " "
+      end
+
+    end
+  elseif #arg == 2 then
+    query = query .. arg[1] .. " = " .. arg[2] .. " "
+  elseif #arg == 3 then
+    query = query .. arg[1] .. " " .. arg[2].. " " .. arg[3] .. " "
+  end
+end
