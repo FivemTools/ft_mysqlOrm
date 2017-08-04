@@ -10,7 +10,7 @@ To be able to use this resource you'll need to install first :
 
 == Installation
 
-Download the https://github.com/RomainLanz/ft_orm/releases[latest release] and extract all file to a `ft_orm` folder inside your `resource` directory.<br>
+Download the https://github.com/RomainLanz/ft_orm/releases[latest release] and extract all file to a `ft_orm` folder inside your `resource` directory. +
 Then start the resource by adding the line `start ft_orm` to your server's configuration.
 
 TIP: Put the `ft_orm` folder inside a category (like `[fivemtools]`), this will make your resource folder cleaner.
