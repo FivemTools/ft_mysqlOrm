@@ -1,3 +1,9 @@
+-- -
+-- @Project  FiveM Tools
+-- @License  GNU General Public License v3.0
+-- @Version  2017.08.04
+--
+
 Model = {}
 local Config = {}
 
