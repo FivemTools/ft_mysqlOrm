@@ -2,10 +2,6 @@
 
 WARNING: This package is under active development, some breaking changes may occur before the first release.
 
-== Table of Contents
-
-toc::[]
-
 == Requirements
 
 To be able to use this resource you'll need to install first :
